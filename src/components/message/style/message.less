@@ -1,0 +1,107 @@
+@types: primary, info, success, warning, danger;
+// 类型颜色
+@colors: {
+  primary: #3a7afe;
+  info: #00afef;
+  success: #00c48f;
+  warning: #ff9f00;
+  danger: #f44336;
+}
+
+.gs-message {
+  --gs-message-padding: var(--gs-padding-middle);
+  --gs-message-bg: #000;
+  color: var(--gs-message-color);
+  width: fit-content;
+  max-width: calc(100% - 32px);
+  box-sizing: border-box;
+  position: fixed;
+  left: 50%;
+  top: 20px;
+  transform: translate(-50%);
+  background-color: var(--gs-message-bg);
+  z-index: 2000;
+  transition: opacity .3s, transform .3s, top .3s;
+  padding: var(--gs-message-padding);
+  border-radius: var(--gs-radius-base);
+  display: flex;
+  align-items: center;
+  box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%), 0 9px 28px 8px rgb(0 0 0 / 5%);
+  pointer-events: all;
+
+  // Font
+  each(@types, {
+    &--@{value} {
+      --gs-message-color: ~'var(--gs-color-@{value})';
+    }
+  });
+
+  &--error {
+    --gs-message-color: ~'var(--gs-color-danger)';
+  }
+
+  &__content {
+    margin-left: 10px;
+  }
+
+  &__closeBtn {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}
+
+.message-fade-enter-from,
+.message-fade-leave-to {
+  opacity: 0;
+  transform: translate(-50%, -100%);
+}
+
+//全局样式
+:root {
+  --gs-color-white: #ffffff;
+  --gs-color-black: #000000;
+  --gs-bg-color: var(--gs-color-white);
+  // Padding
+  --gs-padding-base: 4px;
+  --gs-padding-small: 12px;
+  --gs-padding-middle: 16px;
+  --gs-padding-large: 24px;
+  --gs-line-height-small: 18px;
+  --gs-line-height-middle: 20px;
+  --gs-line-height-large: 22px;
+
+  // Border
+  --gs-border-color: #ebedf0;
+  --gs-border-color-lighter: #ebeef5;
+  --gs-border-width: 1px;
+  --gs-border-style: solid;
+  --gs-border: var(--gs-border-width) solid var(--gs-border-color);
+  --gs-radius-base: 4px;
+  --gs-radius-small: 2px;
+  --gs-radius-middle: 4px;
+  --gs-radius-large: 8px;
+  --gs-radius-round: 20px;
+  --gs-radius-max: 999px;
+
+  --gs-active-opacity: 0.6;
+  --gs-disabled-opacity: 0.5;
+  --gs-overlay-color-lighter: rgba(0, 0, 0, .5);
+  --gs-box-shadow: 0px 12px 32px 4px rgba(0, 0, 0, .04), 0px 8px 20px rgba(0, 0, 0, .08);
+  --gs-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, .12);
+  --gs-font-line-height-primary: 24px;
+  --gs-transition-duration: .3s;
+
+  @a: 3, 5, 7, 8, 9;
+
+  each(@colors, {
+    --gs-color-@{key}: @value;
+    --gs-color-@{key}-3: tint(@value, 30%);
+    --gs-color-@{key}-5: tint(@value, 50%);
+    --gs-color-@{key}-7: tint(@value, 70%);
+    --gs-color-@{key}-8: tint(@value, 80%);
+    --gs-color-@{key}-9: tint(@value, 90%);
+  });
+}
