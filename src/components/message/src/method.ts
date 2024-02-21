@@ -8,6 +8,9 @@ let seed = 1
 let instances: VNode[] = []
 let zIndex = 2000
 
+/**
+ * message function: 创建消息提示体
+ * */
 const message: MessageFn & Partial<Message> = function (
     options: MessageParams = {},
     context?: AppContext | null

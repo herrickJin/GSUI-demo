@@ -1,0 +1,91 @@
+@types: primary, info, success, warning, danger;
+// 类型颜色
+@colors: {
+  primary: #3a7afe;
+  info: #00afef;
+  success: #00c48f;
+  warning: #ff9f00;
+  danger: #f44336;
+}
+
+@N: gs-progress;
+
+.gs-progress {
+  --gs-progress-stroke-width: 6px;
+  --gs-progress-track-color: var(--gs-border-color-lighter);
+  --gs-progress-stroke-color: var(--gs-color-primary);
+  --gs-progress-text-width: 50px;
+  --gs-progress-text-color: var(--gs-color-primary);
+
+  position: relative;
+
+  &--line {
+    display: flex;
+    align-items: center;
+  }
+
+  &__bar {
+    width: 100%;
+    height: 100%;
+
+    &__outer {
+      width: 100%;
+      height: var(--gs-progress-stroke-width);
+      border-radius: calc(var(--gs-progress-stroke-width) / 2);
+      background-color: var(--gs-progress-track-color);
+    }
+
+    &__inner {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 60%;
+      height: inherit;
+      border-radius: inherit;
+      background-color: var(--gs-progress-stroke-color);
+      transition: all var(--gs-transition-duration);
+    }
+
+    &__innerText {
+      display: inline-block;
+      color: #fff;
+      font-size: 12px;
+      margin: 0 5px;
+    }
+  }
+
+  &__text {
+    display: flex;
+    align-items: center;
+    min-width: var(--gs-progress-text-width);
+    margin-left: 6px;
+    color: var(--gs-progress-text-color);
+    line-height: 1;
+    font-size: 14px;
+  }
+
+  &.@{N}--circle,
+  &.@{N}--dashboard {
+    display: inline-flex;
+
+    .@{N}__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      margin: 0;
+      transform: translate(0, -50%);
+      text-align: right;
+    }
+  }
+
+  each(@colors, {
+    &.@{N}--@{key} {
+      --gs-progress-stroke-color: ~'var(--gs-color-@{key})';
+      --gs-progress-text-color: ~'var(--gs-color-@{key})';
+    }
+  });
+}
